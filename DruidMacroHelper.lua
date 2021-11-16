@@ -19,6 +19,7 @@ function DruidMacroHelper:Init()
   self:RegisterSlashCommand("/druidmacro");
   self:RegisterSlashAction('help', 'OnSlashHelp', 'Show list of slash actions (or description for the given action)');
   self:RegisterSlashAction('start', 'OnSlashStart', 'Disable autoUnshift if player is stunned, on gcd or out of mana');
+  self:RegisterSlashAction('energy', 'OnSlashEnergy', 'Disable autoUnshift if player energy is above the given value');
   self:RegisterSlashAction('end', 'OnSlashEnd', 'Enable autoUnshift again');
   self:RegisterSlashAction('stun', 'OnSlashStun', 'Disable autoUnshift if stunned');
   self:RegisterSlashAction('gcd', 'OnSlashGcd', 'Disable autoUnshift if on global cooldown');
@@ -139,6 +140,20 @@ function DruidMacroHelper:OnSlashCooldown(parameters)
     end
   end
   if prevent then
+    SetCVar("autoUnshift", 0);
+  end
+end
+
+function DruidMacroHelper:OnSlashEnergy(parameters)
+  local maxEnergy;
+  if (#(parameters) > 0) then
+    maxEnergy = tremove(parameters, 1);
+  end
+  if (not maxEnergy) then
+   maxEnergy = 30;
+  end
+  if(UnitPower("player",3)>maxEnergy) then
+    self:LogDebug("You are above" + maxEnergy + " energy");
     SetCVar("autoUnshift", 0);
   end
 end

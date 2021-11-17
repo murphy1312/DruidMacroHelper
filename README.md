@@ -122,3 +122,50 @@ For checking cooldowns you can use item shortcuts instead of the id. Available a
 - `sapper` Goblin Sapper Charge (ItemId 10646)
 - `supersapper` Super Sapper Charge (ItemId 23827)
 - `drums` / `holywater` Drums/Holywater (ItemId 13180)
+
+
+
+### my macros
+- the m6 addons is needed
+
+1. enabled / disable powershift
+ ```
+ /cycleflag shiftenabled
+ /run local c=DEFAULT_CHAT_FRAME if pws then pws=false c:AddMessage("Powershift disabled",1,1,1) else pws=true c:AddMessage("Powershift enabled",1,1,1)end
+ ```
+
+1. zerfleischen (and powershift if below 30 energy)
+ ```
+#showtooltip Zerfleischen (Katze)(Rang 3)
+/dmh start
+/dmh energy 30
+/startattack
+/qsequence [flag:shiftenabled] !Katzengestalt(Gestaltwandel), Zerfleischen (Katze)(Rang 3)
+/cast [noflag:shiftenabled] Zerfleischen (Katze)(Rang 3)
+/dmh end
+ ```
+
+2. Schreddern (and powershift if below 30 energy) (and Verheeren if in stealth, Zerfleddern with modifier)
+ ```
+#showtooltip Schreddern
+/dmh start
+/dmh energy 30
+/startattack
+#showtooltip
+/cast [mod:shift] Zerfleddern(Rang 1)
+/cast [stealth] Verheeren
+/qsequence [flag:shiftenabled] !Katzengestalt(Gestaltwandel),  Schreddern
+/cast [noflag:shiftenabled] Schreddern
+/dmh end
+ ```
+
+2. Zerfetzen (and powershift if below 30 energy)
+ ```
+#showtooltip Zerfetzen
+/dmh start
+/dmh energy 30
+/startattack
+/qsequence [flag:shiftenabled] !Katzengestalt(Gestaltwandel), Zerfetzen
+/cast [noflag:shiftenabled] Zerfetzen
+/dmh end
+ ```

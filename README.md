@@ -126,7 +126,7 @@ For checking cooldowns you can use item shortcuts instead of the id. Available a
 
 
 ### my macros
-- the m6 addons is needed
+- the m6 addon is needed 
 
 1. enabled / disable powershift
  ```
